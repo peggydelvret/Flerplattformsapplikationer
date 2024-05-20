@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './style.css'; 
 
 function SynonymerApp() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -26,18 +27,18 @@ function SynonymerApp() {
     };
 
     return (
-        <div>
+        <div className="container">
             <h1>Dictionary Application</h1>
             <input 
                 type="text" 
-                placeholder="Search for word definitions..." 
+                placeholder="Search for word definitions (1 word only)..." 
                 value={searchTerm} 
                 onChange={(e) => setSearchTerm(e.target.value)} 
             />
             <button onClick={handleSearch}>Search</button>
-            {loading && <p>Loading...</p>}
+            {loading && <p className="loading">Loading...</p>}
             {definitions.length > 0 && (
-                <div>
+                <div className="definitions">
                     <h2>Definitions:</h2>
                     <ul>
                         {definitions.map((entry, index) => (
@@ -49,7 +50,7 @@ function SynonymerApp() {
                 </div>
             )}
             {!loading && definitions.length === 0 && (
-                <p>No definitions found.</p>
+                <p className="no-definitions">No definitions found.</p>
             )}
         </div>
     );
