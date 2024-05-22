@@ -11,6 +11,7 @@ function SynonymerApp() {
     const [selectedLanguage, setSelectedLanguage] = useState('sv'); // Default to Swedish
 
     useEffect(() => {
+        // Load history from sessionStorage on component mount
         const storedHistory = JSON.parse(sessionStorage.getItem('history')) || [];
         setHistory(storedHistory);
     }, []);
@@ -25,7 +26,7 @@ function SynonymerApp() {
             const data = await response.json();
             setDefinitions(data);
             updateHistory(searchTerm);
-            await translateDefinitions(data);
+            setTranslatedDefinitions([]); // Clear previous translations
         } catch (error) {
             console.error('Error fetching definitions:', error);
         } finally {
@@ -49,7 +50,7 @@ function SynonymerApp() {
         fetchDefinitions();
     };
 
-    const translateDefinitions = async (definitions) => {
+    const translateDefinitions = async () => {
         try {
             const translations = await Promise.all(definitions.map(async (entry) => {
                 const response = await axios.post('https://libretranslate.de/translate', {
@@ -62,7 +63,6 @@ function SynonymerApp() {
                 });
                 return {
                     word: entry.word,
-                    originalDefinition: entry.meanings[0].definitions[0].definition,
                     translatedDefinition: response.data.translatedText
                 };
             }));
@@ -76,8 +76,11 @@ function SynonymerApp() {
         setSelectedLanguage(e.target.value);
     };
 
-    return (
+    const handleTranslate = () => {
+        translateDefinitions();
+    };
 
+    return (
         <div className="container">
             <h1>Dictionary Application</h1>
             <input 
@@ -93,8 +96,9 @@ function SynonymerApp() {
                 <option value="fr">French</option>
                 <option value="de">German</option>
                 <option value="it">Italian</option>
-                {/* Add more languages as needed */}
+                <option value="en">English</option>
             </select>
+            <button onClick={handleTranslate} disabled={definitions.length === 0}>Translate</button>
             {loading && <p className="loading">Loading...</p>}
             {definitions.length > 0 && (
                 <div className="definitions">
@@ -114,7 +118,7 @@ function SynonymerApp() {
                     <ul>
                         {translatedDefinitions.map((entry, index) => (
                             <li key={index}>
-                                <strong>{entry.word}</strong>: {entry.translatedDefinition} (Original: {entry.originalDefinition})
+                                <strong>{entry.word}</strong>: {entry.translatedDefinition}
                             </li>
                         ))}
                     </ul>
@@ -124,7 +128,15 @@ function SynonymerApp() {
                 <p className="no-definitions">No definitions found.</p>
             )}
             <div className="history">
-        <div className="app">
+                <h2>Search History:</h2>
+                <ul>
+                    {history.map((term, index) => (
+                        <li key={index} onClick={() => handleHistoryClick(term)}>
+                            {term}
+                        </li>
+                    ))}
+                </ul>
+            </div>
             <div className="sidebar">
                 <h2>Search History:</h2>
                 <ul>
@@ -135,15 +147,7 @@ function SynonymerApp() {
                     ))}
                 </ul>
             </div>
-            
-                  
-                    {!loading && definitions.length === 0 && (
-                        <p className="no-definitions">No definitions found.</p>
-                    )}
-                </div>
-            </div>
         </div>
-
     );
 }
 
