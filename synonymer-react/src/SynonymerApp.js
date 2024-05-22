@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './style.css'; 
 
 function SynonymerApp() {
@@ -6,6 +7,8 @@ function SynonymerApp() {
     const [definitions, setDefinitions] = useState([]);
     const [loading, setLoading] = useState(false);
     const [history, setHistory] = useState([]);
+    const [translatedDefinitions, setTranslatedDefinitions] = useState([]);
+    const [selectedLanguage, setSelectedLanguage] = useState('sv'); // Default to Swedish
 
     useEffect(() => {
         // Load history from localStorage on component mount
@@ -23,6 +26,7 @@ function SynonymerApp() {
             const data = await response.json();
             setDefinitions(data);
             updateHistory(searchTerm);
+            await translateDefinitions(data);
         } catch (error) {
             console.error('Error fetching definitions:', error);
         } finally {
@@ -45,6 +49,33 @@ function SynonymerApp() {
         fetchDefinitions();
     };
 
+    const translateDefinitions = async (definitions) => {
+        try {
+            const translations = await Promise.all(definitions.map(async (entry) => {
+                const response = await axios.post('https://libretranslate.de/translate', {
+                    q: entry.meanings[0].definitions[0].definition,
+                    source: 'en',
+                    target: selectedLanguage, // Use the selected language
+                    format: 'text'
+                }, {
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                return {
+                    word: entry.word,
+                    originalDefinition: entry.meanings[0].definitions[0].definition,
+                    translatedDefinition: response.data.translatedText
+                };
+            }));
+            setTranslatedDefinitions(translations);
+        } catch (error) {
+            console.error('Error translating definitions:', error);
+        }
+    };
+
+    const handleLanguageChange = (e) => {
+        setSelectedLanguage(e.target.value);
+    };
+
     return (
         <div className="container">
             <h1>Dictionary Application</h1>
@@ -55,6 +86,14 @@ function SynonymerApp() {
                 onChange={(e) => setSearchTerm(e.target.value)} 
             />
             <button onClick={handleSearch}>Search</button>
+            <select value={selectedLanguage} onChange={handleLanguageChange}>
+                <option value="sv">Swedish</option>
+                <option value="es">Spanish</option>
+                <option value="fr">French</option>
+                <option value="de">German</option>
+                <option value="it">Italian</option>
+                {/* Add more languages as needed */}
+            </select>
             {loading && <p className="loading">Loading...</p>}
             {definitions.length > 0 && (
                 <div className="definitions">
@@ -63,6 +102,18 @@ function SynonymerApp() {
                         {definitions.map((entry, index) => (
                             <li key={index}>
                                 <strong>{entry.word}</strong>: {entry.meanings[0].definitions[0].definition}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+            {translatedDefinitions.length > 0 && (
+                <div className="translated-definitions">
+                    <h2>Translated Definitions:</h2>
+                    <ul>
+                        {translatedDefinitions.map((entry, index) => (
+                            <li key={index}>
+                                <strong>{entry.word}</strong>: {entry.translatedDefinition} (Original: {entry.originalDefinition})
                             </li>
                         ))}
                     </ul>
