@@ -134,39 +134,15 @@ function SynonymerApp() {
                     ))}
                 </ul>
             </div>
-            <div className="container">
-                <h1>Dictionary Application</h1>
-                <div className='search-section'>
-                    <input 
-                        type="text" 
-                        placeholder="Search for word definitions (1 word only)..." 
-                        value={searchTerm} 
-                        onChange={(e) => setSearchTerm(e.target.value)} 
-                    />
-                    <button onClick={handleSearch}>Search</button>
-                    {loading && <p className="loading">Loading...</p>}
-                </div>
-                <div className="definitions">
-                    {definitions.length > 0 && (
-                        <div>
-                            <h2>Definitions:</h2>
-                            <ul>
-                                {definitions.map((entry, index) => (
-                                    <li key={index}>
-                                        <strong>{entry.word}</strong>: {entry.meanings[0].definitions[0].definition}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
+            
+                  
                     {!loading && definitions.length === 0 && (
                         <p className="no-definitions">No definitions found.</p>
                     )}
                 </div>
             </div>
         </div>
-        </div>
-</div>
+
     );
 }
 
