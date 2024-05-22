@@ -80,6 +80,11 @@ function SynonymerApp() {
         translateDefinitions();
     };
 
+    const getTranslatedDefinition = (word) => {
+        const translation = translatedDefinitions.find(t => t.word === word);
+        return translation ? translation.translatedDefinition : 'Translation not available';
+    };
+
     return (
         <div className="container">
             <h1>Dictionary Application</h1>
@@ -96,9 +101,7 @@ function SynonymerApp() {
                 <option value="fr">French</option>
                 <option value="de">German</option>
                 <option value="it">Italian</option>
-                <option value="en">English</option>
             </select>
-            <button onClick={handleTranslate} disabled={definitions.length === 0}>Translate</button>
             {loading && <p className="loading">Loading...</p>}
             {definitions.length > 0 && (
                 <div className="definitions">
@@ -107,26 +110,18 @@ function SynonymerApp() {
                         {definitions.map((entry, index) => (
                             <li key={index}>
                                 <strong>{entry.word}</strong>: {entry.meanings[0].definitions[0].definition}
+                                <br />
+                                <em>Translation ({selectedLanguage}):</em> {getTranslatedDefinition(entry.word)}
                             </li>
                         ))}
                     </ul>
-                </div>
-            )}
-            {translatedDefinitions.length > 0 && (
-                <div className="translated-definitions">
-                    <h2>Translated Definitions:</h2>
-                    <ul>
-                        {translatedDefinitions.map((entry, index) => (
-                            <li key={index}>
-                                <strong>{entry.word}</strong>: {entry.translatedDefinition}
-                            </li>
-                        ))}
-                    </ul>
+                    <button onClick={handleTranslate} disabled={definitions.length === 0}>Translate</button>
                 </div>
             )}
             {!loading && definitions.length === 0 && (
                 <p className="no-definitions">No definitions found.</p>
             )}
+            
             
             <div className="sidebar">
                 <h2>Search History:</h2>
