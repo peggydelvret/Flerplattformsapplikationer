@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './style.css'; 
 
 function SynonymerApp() {
     const [searchTerm, setSearchTerm] = useState('');
     const [definitions, setDefinitions] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [history, setHistory] = useState([]);
+
+    useEffect(() => {
+        // Load history from localStorage on component mount
+        const storedHistory = JSON.parse(localStorage.getItem('history')) || [];
+        setHistory(storedHistory);
+    }, []);
 
     const fetchDefinitions = async () => {
         setLoading(true);
@@ -15,6 +22,7 @@ function SynonymerApp() {
             }
             const data = await response.json();
             setDefinitions(data);
+            updateHistory(searchTerm);
         } catch (error) {
             console.error('Error fetching definitions:', error);
         } finally {
@@ -23,6 +31,17 @@ function SynonymerApp() {
     };
 
     const handleSearch = () => {
+        fetchDefinitions();
+    };
+
+    const updateHistory = (newTerm) => {
+        const updatedHistory = [newTerm, ...history.filter(term => term !== newTerm)].slice(0, 10);
+        setHistory(updatedHistory);
+        localStorage.setItem('history', JSON.stringify(updatedHistory));
+    };
+
+    const handleHistoryClick = (term) => {
+        setSearchTerm(term);
         fetchDefinitions();
     };
 
@@ -52,6 +71,16 @@ function SynonymerApp() {
             {!loading && definitions.length === 0 && (
                 <p className="no-definitions">No definitions found.</p>
             )}
+            <div className="history">
+                <h2>Search History:</h2>
+                <ul>
+                    {history.map((term, index) => (
+                        <li key={index} onClick={() => handleHistoryClick(term)}>
+                            {term}
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 }
