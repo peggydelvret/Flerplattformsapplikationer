@@ -11,7 +11,7 @@ function SynonymerApp() {
     const [selectedLanguage, setSelectedLanguage] = useState('sv'); // Default to Swedish
 
     useEffect(() => {
-        const storedHistory = JSON.parse(localStorage.getItem('history')) || [];
+        const storedHistory = JSON.parse(sessionStorage.getItem('history')) || [];
         setHistory(storedHistory);
     }, []);
 
@@ -40,7 +40,7 @@ function SynonymerApp() {
     const updateHistory = (newTerm) => {
         const updatedHistory = [newTerm, ...history.filter(term => term !== newTerm)].slice(0, 10);
         setHistory(updatedHistory);
-        localStorage.setItem('history', JSON.stringify(updatedHistory));
+        sessionStorage.setItem('history', JSON.stringify(updatedHistory));
     };
 
     const handleHistoryClick = (term) => {
