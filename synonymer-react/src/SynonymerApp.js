@@ -8,7 +8,7 @@ function SynonymerApp() {
     const [loading, setLoading] = useState(false);
     const [history, setHistory] = useState([]);
     const [translatedDefinitions, setTranslatedDefinitions] = useState([]);
-    const [selectedLanguage, setSelectedLanguage] = useState('sv'); // Default to Swedish
+    const [selectedLanguage, setSelectedLanguage] = useState('');
 
     useEffect(() => {
         // Load history from sessionStorage on component mount
@@ -82,7 +82,7 @@ function SynonymerApp() {
 
     const getTranslatedDefinition = (word) => {
         const translation = translatedDefinitions.find(t => t.word === word);
-        return translation ? translation.translatedDefinition : 'Translation not available';
+        return translation ? translation.translatedDefinition : '';
     };
 
     return (
@@ -90,12 +90,13 @@ function SynonymerApp() {
             <h1>Dictionary Application</h1>
             <input 
                 type="text" 
-                placeholder="Search for word definitions (1 word only)..." 
+                placeholder="Search for ONE word definitions" 
                 value={searchTerm} 
                 onChange={(e) => setSearchTerm(e.target.value)} 
             />
             <button onClick={handleSearch}>Search</button>
             <select value={selectedLanguage} onChange={handleLanguageChange}>
+                <option value="">Choose language...</option>
                 <option value="sv">Swedish</option>
                 <option value="es">Spanish</option>
                 <option value="fr">French</option>
