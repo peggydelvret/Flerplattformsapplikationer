@@ -11,8 +11,8 @@ function SynonymerApp() {
     const [selectedLanguage, setSelectedLanguage] = useState('sv'); // Default to Swedish
 
     useEffect(() => {
-        // Load history from localStorage on component mount
-        const storedHistory = JSON.parse(localStorage.getItem('history')) || [];
+        // Load history from sessionStorage on component mount
+        const storedHistory = JSON.parse(sessionStorage.getItem('history')) || [];
         setHistory(storedHistory);
     }, []);
 
@@ -26,7 +26,7 @@ function SynonymerApp() {
             const data = await response.json();
             setDefinitions(data);
             updateHistory(searchTerm);
-            await translateDefinitions(data);
+            setTranslatedDefinitions([]); // Clear previous translations
         } catch (error) {
             console.error('Error fetching definitions:', error);
         } finally {
@@ -41,7 +41,7 @@ function SynonymerApp() {
     const updateHistory = (newTerm) => {
         const updatedHistory = [newTerm, ...history.filter(term => term !== newTerm)].slice(0, 10);
         setHistory(updatedHistory);
-        localStorage.setItem('history', JSON.stringify(updatedHistory));
+        sessionStorage.setItem('history', JSON.stringify(updatedHistory));
     };
 
     const handleHistoryClick = (term) => {
@@ -49,7 +49,7 @@ function SynonymerApp() {
         fetchDefinitions();
     };
 
-    const translateDefinitions = async (definitions) => {
+    const translateDefinitions = async () => {
         try {
             const translations = await Promise.all(definitions.map(async (entry) => {
                 const response = await axios.post('https://libretranslate.de/translate', {
@@ -62,7 +62,6 @@ function SynonymerApp() {
                 });
                 return {
                     word: entry.word,
-                    originalDefinition: entry.meanings[0].definitions[0].definition,
                     translatedDefinition: response.data.translatedText
                 };
             }));
@@ -74,6 +73,10 @@ function SynonymerApp() {
 
     const handleLanguageChange = (e) => {
         setSelectedLanguage(e.target.value);
+    };
+
+    const handleTranslate = () => {
+        translateDefinitions();
     };
 
     return (
@@ -92,8 +95,9 @@ function SynonymerApp() {
                 <option value="fr">French</option>
                 <option value="de">German</option>
                 <option value="it">Italian</option>
-                {/* Add more languages as needed */}
+                <option value="en">English</option>
             </select>
+            <button onClick={handleTranslate} disabled={definitions.length === 0}>Translate</button>
             {loading && <p className="loading">Loading...</p>}
             {definitions.length > 0 && (
                 <div className="definitions">
@@ -113,7 +117,7 @@ function SynonymerApp() {
                     <ul>
                         {translatedDefinitions.map((entry, index) => (
                             <li key={index}>
-                                <strong>{entry.word}</strong>: {entry.translatedDefinition} (Original: {entry.originalDefinition})
+                                <strong>{entry.word}</strong>: {entry.translatedDefinition}
                             </li>
                         ))}
                     </ul>
