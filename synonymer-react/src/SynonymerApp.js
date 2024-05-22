@@ -126,16 +126,7 @@ function SynonymerApp() {
             {!loading && definitions.length === 0 && (
                 <p className="no-definitions">No definitions found.</p>
             )}
-            <div className="history">
-                <h2>Search History:</h2>
-                <ul>
-                    {history.map((term, index) => (
-                        <li key={index} onClick={() => handleHistoryClick(term)}>
-                            {term}
-                        </li>
-                    ))}
-                </ul>
-            </div>
+            
             <div className="sidebar">
                 <h2>Search History:</h2>
                 <ul>
