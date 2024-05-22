@@ -8,7 +8,6 @@ function SynonymerApp() {
     const [history, setHistory] = useState([]);
 
     useEffect(() => {
-        // Load history from localStorage on component mount
         const storedHistory = JSON.parse(localStorage.getItem('history')) || [];
         setHistory(storedHistory);
     }, []);
@@ -46,32 +45,8 @@ function SynonymerApp() {
     };
 
     return (
-        <div className="container">
-            <h1>Dictionary Application</h1>
-            <input 
-                type="text" 
-                placeholder="Search for word definitions (1 word only)..." 
-                value={searchTerm} 
-                onChange={(e) => setSearchTerm(e.target.value)} 
-            />
-            <button onClick={handleSearch}>Search</button>
-            {loading && <p className="loading">Loading...</p>}
-            {definitions.length > 0 && (
-                <div className="definitions">
-                    <h2>Definitions:</h2>
-                    <ul>
-                        {definitions.map((entry, index) => (
-                            <li key={index}>
-                                <strong>{entry.word}</strong>: {entry.meanings[0].definitions[0].definition}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
-            {!loading && definitions.length === 0 && (
-                <p className="no-definitions">No definitions found.</p>
-            )}
-            <div className="history">
+        <div className="app">
+            <div className="sidebar">
                 <h2>Search History:</h2>
                 <ul>
                     {history.map((term, index) => (
@@ -80,6 +55,36 @@ function SynonymerApp() {
                         </li>
                     ))}
                 </ul>
+            </div>
+            <div className="container">
+                <h1>Dictionary Application</h1>
+                <div className='search-section'>
+                    <input 
+                        type="text" 
+                        placeholder="Search for word definitions (1 word only)..." 
+                        value={searchTerm} 
+                        onChange={(e) => setSearchTerm(e.target.value)} 
+                    />
+                    <button onClick={handleSearch}>Search</button>
+                    {loading && <p className="loading">Loading...</p>}
+                </div>
+                <div className="definitions">
+                    {definitions.length > 0 && (
+                        <div>
+                            <h2>Definitions:</h2>
+                            <ul>
+                                {definitions.map((entry, index) => (
+                                    <li key={index}>
+                                        <strong>{entry.word}</strong>: {entry.meanings[0].definitions[0].definition}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                    {!loading && definitions.length === 0 && (
+                        <p className="no-definitions">No definitions found.</p>
+                    )}
+                </div>
             </div>
         </div>
     );

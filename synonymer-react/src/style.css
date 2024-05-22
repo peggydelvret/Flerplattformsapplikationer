@@ -1,18 +1,55 @@
-
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
 }
 
-.container {
-    max-width: 600px;
+.app {
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
     margin: 50px auto;
-    padding: 20px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+}
+
+.container {
+    flex: 1;
+    padding: 20px;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #cfc2c2;
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    height: 100vh; /* Full height */
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+.sidebar h2 {
+    color: black;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    cursor: pointer;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.sidebar li:hover {
+    text-decoration: underline;
 }
 
 h1 {
@@ -33,7 +70,7 @@ button {
     display: inline-block;
     width: 100%;
     padding: 10px;
-    background-color: #007BFF;
+    background-color: rgb(193, 132, 142);
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -42,7 +79,7 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: rgb(224, 157, 168);
 }
 
 .loading,
@@ -55,9 +92,11 @@ button:hover {
 .definitions {
     margin-top: 20px;
     padding: 20px;
-    border: 1px solid #000; /* Svart kant */
+    border: 1px solid #000; 
     border-radius: 4px;
     background-color: #fafafa;
+    height: 300px;
+    overflow-y: auto;
 }
 
 .definitions ul {
@@ -71,6 +110,5 @@ button:hover {
 
 .definitions strong {
     font-size: 18px;
-    color: #007BFF;
+    color: black;
 }
-
