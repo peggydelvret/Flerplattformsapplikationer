@@ -36,6 +36,7 @@ function SynonymerApp() {
 
     const handleSearch = () => {
         fetchDefinitions();
+        setSearchTerm('');
     };
 
     const updateHistory = (newTerm) => {
