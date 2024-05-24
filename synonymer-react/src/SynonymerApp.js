@@ -26,7 +26,7 @@ function SynonymerApp() {
             const data = await response.json();
             setDefinitions(data);
             updateHistory(searchTerm);
-            setTranslatedDefinitions([]); // Clear previous translations
+            setTranslatedDefinitions([]); 
         } catch (error) {
             console.error('Error fetching definitions:', error);
         } finally {
