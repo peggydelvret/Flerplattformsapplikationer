@@ -95,14 +95,6 @@ function SynonymerApp() {
                 onChange={(e) => setSearchTerm(e.target.value)} 
             />
             <button onClick={handleSearch}>Search</button>
-            <select value={selectedLanguage} onChange={handleLanguageChange}>
-                <option value="">Choose language...</option>
-                <option value="sv">Swedish</option>
-                <option value="es">Spanish</option>
-                <option value="fr">French</option>
-                <option value="de">German</option>
-                <option value="it">Italian</option>
-            </select>
             {loading && <p className="loading">Loading...</p>}
             {definitions.length > 0 && (
                 <div className="definitions">
@@ -112,18 +104,28 @@ function SynonymerApp() {
                             <li key={index}>
                                 <strong>{entry.word}</strong>: {entry.meanings[0].definitions[0].definition}
                                 <br />
-                                <em><strong>Translation ({selectedLanguage}):</strong></em> {getTranslatedDefinition(entry.word)}
+                                <p><i>Translation ({selectedLanguage}):</i> {getTranslatedDefinition(entry.word)}</p>
                             </li>
                         ))}
                     </ul>
+                    <div className='language-translate'>
+                <select value={selectedLanguage} onChange={handleLanguageChange}>
+                    <option value="">Choose language...</option>
+                    <option value="sv">Swedish</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                    <option value="it">Italian</option>
+                </select>
                     <button onClick={handleTranslate} disabled={definitions.length === 0}>Translate</button>
+                </div>
                 </div>
             )}
             {!loading && definitions.length === 0 && (
                 <p className="no-definitions">No definitions found.</p>
             )}
             
-            
+           
             <div className="sidebar">
                 <h2>Search History:</h2>
                 <ul>
