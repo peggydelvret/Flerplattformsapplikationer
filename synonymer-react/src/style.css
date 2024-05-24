@@ -112,3 +112,7 @@ button:hover {
     font-size: 18px;
     color: black;
 }
+
+.translation {
+    font-style: bold;
+}

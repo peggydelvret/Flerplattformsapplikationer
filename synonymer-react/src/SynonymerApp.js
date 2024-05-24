@@ -112,7 +112,7 @@ function SynonymerApp() {
                             <li key={index}>
                                 <strong>{entry.word}</strong>: {entry.meanings[0].definitions[0].definition}
                                 <br />
-                                <em>Translation ({selectedLanguage}):</em> {getTranslatedDefinition(entry.word)}
+                                <em><strong>Translation ({selectedLanguage}):</strong></em> {getTranslatedDefinition(entry.word)}
                             </li>
                         ))}
                     </ul>
