@@ -3,6 +3,7 @@ import axios from 'axios';
 import './style.css'; 
 
 function SynonymerApp() {
+    //State hooks, hanterar komponenterna i react.
     const [searchTerm, setSearchTerm] = useState('');
     const [definitions, setDefinitions] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -11,11 +12,12 @@ function SynonymerApp() {
     const [selectedLanguage, setSelectedLanguage] = useState('');
 
     useEffect(() => {
-        // Load history from sessionStorage on component mount
+        // Ladda historik från sessionStorage
         const storedHistory = JSON.parse(sessionStorage.getItem('history')) || [];
         setHistory(storedHistory);
     }, []);
 
+    //Hämtar data från API:er
     const fetchDefinitions = async () => {
         setLoading(true);
         try {
@@ -25,26 +27,26 @@ function SynonymerApp() {
             }
             const data = await response.json();
             setDefinitions(data);
-            updateHistory(searchTerm);
-            setTranslatedDefinitions([]); 
+            updateHistory(searchTerm); // uppdaterar sökhistoriken
+            setTranslatedDefinitions([]); //
         } catch (error) {
             console.error('Error fetching definitions:', error);
         } finally {
             setLoading(false);
         }
     };
-
+    //sökningen
     const handleSearch = () => {
         fetchDefinitions();
         setSearchTerm('');
     };
-
+    // uppdaterar historiken till SessionStorage
     const updateHistory = (newTerm) => {
         const updatedHistory = [newTerm, ...history.filter(term => term !== newTerm)].slice(0, 10);
         setHistory(updatedHistory);
         sessionStorage.setItem('history', JSON.stringify(updatedHistory));
     };
-
+    // så man kan trycka på historiken och få upp gammal sökning.
     const handleHistoryClick = (term) => {
         setSearchTerm(term);
         fetchDefinitions();
@@ -56,7 +58,7 @@ function SynonymerApp() {
                 const response = await axios.post('https://libretranslate.de/translate', {
                     q: entry.meanings[0].definitions[0].definition,
                     source: 'en',
-                    target: selectedLanguage, // Use the selected language
+                    target: selectedLanguage, // språkväljaren
                     format: 'text'
                 }, {
                     headers: { 'Content-Type': 'application/json' }
@@ -71,11 +73,11 @@ function SynonymerApp() {
             console.error('Error translating definitions:', error);
         }
     };
-
+    // ändra språk
     const handleLanguageChange = (e) => {
         setSelectedLanguage(e.target.value);
     };
-
+    //funktion för att översätta
     const handleTranslate = () => {
         translateDefinitions();
     };
@@ -84,7 +86,7 @@ function SynonymerApp() {
         const translation = translatedDefinitions.find(t => t.word === word);
         return translation ? translation.translatedDefinition : '';
     };
-
+    // hemsidans innehåll
     return (
         <div className="container">
             <h1>Dictionary Application</h1>
