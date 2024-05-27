@@ -35,12 +35,15 @@ function SynonymerApp() {
     };
 
     const handleSearch = () => {
+        const searchTermLowerCase = searchTerm.toLowerCase(); // alla sökningar blir små bokstäver
+        setSearchTerm(searchTermLowerCase); 
         fetchDefinitions();
         setSearchTerm('');
     };
 
     const updateHistory = (newTerm) => {
-        const updatedHistory = [newTerm, ...history.filter(term => term !== newTerm)].slice(0, 10);
+        const newTermLowerCase = newTerm.toLowerCase();
+        const updatedHistory = [newTermLowerCase, ...history.filter(term => term !== newTermLowerCase)].slice(0, 10);
         setHistory(updatedHistory);
         sessionStorage.setItem('history', JSON.stringify(updatedHistory));
     };
