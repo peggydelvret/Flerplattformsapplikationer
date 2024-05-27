@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './style.css'; 
 
-function SynonymerApp() {
+function DictionaryApp() {
     //State hooks, hanterar komponenterna i react.
     const [searchTerm, setSearchTerm] = useState('');
     const [definitions, setDefinitions] = useState([]);
@@ -145,4 +145,4 @@ function SynonymerApp() {
     );
 }
 
-export default SynonymerApp;
+export default DictionaryApp;

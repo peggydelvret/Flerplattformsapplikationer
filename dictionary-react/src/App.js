@@ -1,12 +1,12 @@
 // App.js
 
 import React from 'react';
-import SynonymerApp from './SynonymerApp';
+import DictionaryApp from './DictionaryApp';
 
 function App() {
     return (
         <div className="App">
-            <SynonymerApp />
+            <DictionaryApp />
         </div>
     );
 }
