@@ -5,6 +5,7 @@ body {
     padding: 0;
     display: flex;
     justify-content: center;
+
 }
 
 .app {
@@ -15,14 +16,29 @@ body {
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    position: relative;
+}
+
+.container {
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-right: 220px; 
 }
 
 @media screen and (max-width: 1500px) {
 /*Computer*/
 
+.app {
+    flex-direction: column;
+}
+
 .container {
+    flex: 1;
     width: 600px;
     padding: 20px;
+    margin-right: 20px;
+    box-sizing: border-box;
 }
 
 .sidebar {
@@ -34,6 +50,7 @@ body {
     position: fixed;
     right: 0;
     top: 0;
+    margin-left: 20px;
 }
 
 .sidebar h2 {
@@ -140,7 +157,7 @@ select:hover {
 }
 }
 
-@media screen and (max-width: 900px) 
+@media screen and (max-width: 1000px) 
 /*Tablet*/
 {
 
@@ -149,40 +166,14 @@ select:hover {
     }
 
     .container {
-        width: 500px;
+        width: 400px;
         padding: 20px;
 
     }
 
     .sidebar {
-        width: 100%;
-        background-color: #dfc0c0;
+        width: 100px;
         padding: 20px;
-        box-shadow: none;
-        height: auto;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        margin-top: 600px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-
-    }
-
-    .sidebar ul {
-        padding: 0;
-        margin: 0;
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-
-    }
-
-    .sidebar li {
-        width: calc(33% - 10px);
-        margin-bottom: 10px;
     }
 
 
