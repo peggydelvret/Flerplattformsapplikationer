@@ -1,6 +1,6 @@
 # Flerplattformsapplikationer
 
-Projektgrupp 11 - Eli El-Alawi, Peggy Delvret & Saga Norrman
+Projektgrupp 11 - Peggy Delvret, Eli El-Alawi & Saga Norrman
 
 ## Innehållsförteckning
 
@@ -30,11 +30,13 @@ Vårt mål är att utveckla ett projekt som möjliggör för användaren att sö
 #### macOS, Windows och Linux
 1. **Navigera till projektkatalogen**
    - Byt till projektets katalog:
-     cd Flerplattformsapplikationer/synonymer-react
+     cd Flerplattformsapplikationer/dictionary-react
 
 2. **Installera projektets beroenden**
    - Kör följande kommando för att installera alla nödvändiga beroenden:
      npm install
+     npm install axios
+     npm install react
      
 3. **Starta utvecklingsservern**
    - När installationen är klar, starta utvecklingsservern:
