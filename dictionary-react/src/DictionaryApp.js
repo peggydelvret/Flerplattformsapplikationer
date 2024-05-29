@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import qs from 'qs';
 import './style.css'; 
 
 function DictionaryApp() {
@@ -58,14 +59,14 @@ function DictionaryApp() {
     const translateDefinitions = async () => {
         try {
             const translations = await Promise.all(definitions.map(async (entry) => {
-                const response = await axios.post('http://127.0.0.1:5000/translate', {
+                const response = await axios.post('http://127.0.0.1:5000/translate', qs.stringify({
                     q: entry.meanings[0].definitions[0].definition,
                     source: 'en',
                     target: selectedLanguage, // språkväljaren
                     format: 'text'
-                }, {
+                }), qs.stringify({
                     headers: { 'Content-Type': 'application/json' }
-                });
+                }));
                 return {
                     word: entry.word,
                     translatedDefinition: response.data.translatedText
