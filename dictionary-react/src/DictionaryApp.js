@@ -58,7 +58,7 @@ function DictionaryApp() {
     const translateDefinitions = async () => {
         try {
             const translations = await Promise.all(definitions.map(async (entry) => {
-                const response = await axios.post('http://localhost:5000/translate', {
+                const response = await axios.post('http://127.0.0.1:5000/translate', {
                     q: entry.meanings[0].definitions[0].definition,
                     source: 'en',
                     target: selectedLanguage, // språkväljaren
