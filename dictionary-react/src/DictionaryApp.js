@@ -58,7 +58,7 @@ function DictionaryApp() {
     const translateDefinitions = async () => {
         try {
             const translations = await Promise.all(definitions.map(async (entry) => {
-                const response = await axios.post('https://libretranslate.de/translate', {
+                const response = await axios.post('http://localhost:5000/translate', {
                     q: entry.meanings[0].definitions[0].definition,
                     source: 'en',
                     target: selectedLanguage, // språkväljaren
@@ -76,6 +76,7 @@ function DictionaryApp() {
             console.error('Error translating definitions:', error);
         }
     };
+    
     // ändra språk
     const handleLanguageChange = (e) => {
         setSelectedLanguage(e.target.value);

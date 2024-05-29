@@ -18,45 +18,75 @@ Vårt mål är att utveckla ett projekt som möjliggör för användaren att sö
 ## Installation
 
 1. **Installera Node.js och npm:**
-  - Besök Node.js officiella hemsida (https://nodejs.org/) och ladda ner den senaste versionen. Detta     
-  inkluderar npm (Node Package Manager), som behövs för att installera beroenden.
-  - Följ installationsinstruktionerna för ditt operativsystem.
+  
+   Besök Node.js officiella hemsida (https://nodejs.org/) och ladda ner den senaste versionen. Detta inkluderar npm (Node Package Manager), som behövs för att installera beroenden. Följ installationsinstruktionerna för ditt operativsystem.
 
 2. **Klona GitHub-repositoriet**
-   - Öppna en terminal (macOS/Linux) eller Command Prompt/Powershell (Windows).
-   - Klona  GitHub-repo genom att köra följande kommando:
-     git clone https://github.com/peggydelvret/Flerplattformsapplikationer.git
+   
+   Öppna en terminal (macOS/Linux) eller Command Prompt/Powershell (Windows).
+   Klona  GitHub-repo genom att köra följande kommando: 
+   ```
+   git clone https://github.com/peggydelvret/Flerplattformsapplikationer.git
+   ```
 
 #### macOS, Windows och Linux
 1. **Navigera till projektkatalogen**
    - Byt till projektets katalog:
-     cd Flerplattformsapplikationer/dictionary-react
+   ```
+   cd Flerplattformsapplikationer/dictionary-react
+   ```
 
-2. **Installera projektets beroenden**
+1. **Installera projektets beroenden**
    - Kör följande kommando för att installera alla nödvändiga beroenden:
-     npm install
-     npm install axios
-     npm install react
-     
-3. **Starta utvecklingsservern**
-   - När installationen är klar, starta utvecklingsservern:
-     npm start
+   ```
+   npm install
+   ```
 
-4. **Öppna applikationen**
-   - Applikationen bör automatiskt öppnas i din webbläsare på `http://localhost:3000`.
-   - Om den inte gör det, öppna din webbläsare och navigera till `http://localhost:3000`.
+1. **Installera Docker**
+
+   Installera homebrew enligt instruktionerna på deras hemsida: [Instruktioner på Homebrews hemsida](https://brew.sh/).
+
+   Instalera sedan Docker med hjälp av homebrew
+      ```
+      brew install docker
+      ```
+   För att lättare administrera Docker rekomenderas det att instalera Rancher-Desktop:
+      ```
+      brew install rancher
+      ```
+   Starta den lokala LibreTranslate instansen genom att köra följande Docker-kommando i terminalen:
+      ```
+      docker run -d -p 5000:5000 libretranslate/libretranslate
+      ```
+     
+1. **Starta utvecklingsservern**
+
+   Starta utvecklingsservern i ett nytt terminalfönster:
+      ```
+      npm start
+      ```
+
+1. **Öppna applikationen**
+   - Applikationen bör automatiskt öppnas i din webbläsare
+   - Om den inte gör det, öppna din webbläsare och navigera till [http://localhost:3000](http://localhost:3000)
 
 ## API:er
 
 Projektet använder sig av följande API:er:
 
 1. **Dictionary API**
-   - URL: `https://api.dictionaryapi.dev/api/v2/entries/en/`
+   - URL: 
+   ```
+   https://api.dictionaryapi.dev/api/v2/entries/en/
+   ```
    - Beskrivning: Används för att hämta en eller flera definitioner av engelska ord.
    - Dokumentation: [Dictionary API Documentation](https://dictionaryapi.dev/)
 
 2. **LibreTranslate API**
-   - URL: `https://libretranslate.de/translate`
+   - URL: 
+   ```
+   https://libretranslate.de/translate
+   ```
    - Beskrivning: Används för att översätta text till olika språk.
    - Dokumentation: [LibreTranslate API Documentation](https://libretranslate.com/)
 
@@ -71,9 +101,12 @@ Projektet använder sig av följande API:er:
 För att använda applikationen, följ dessa steg:
 
 1. **Öppna applikationen**
-   - Starta utvecklingsservern genom att köra `npm start` (se installationssektionen).
-   - Applikationen bör automatiskt öppnas i din webbläsare på `http://localhost:3000`.
-   - Om den inte gör det, öppna din webbläsare och navigera till `http://localhost:3000`.
+   - Starta utvecklingsservern genom att köra:
+   ```
+   npm start
+   ``` 
+   - Applikationen bör automatiskt öppnas i din webbläsare
+   - Om den inte gör det, öppna din webbläsare och navigera till [http://localhost:3000](http://localhost:3000)
 
 2. **Söka efter ord**
    - På startsidan kommer du att se ett sökfält.
