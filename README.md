@@ -40,25 +40,7 @@ Vårt mål är att utveckla ett projekt som möjliggör för användaren att sö
    - Kör följande kommando för att installera alla nödvändiga beroenden:
    ```
    npm install
-   ```
-
-1. **Installera Docker**
-
-   Installera homebrew enligt instruktionerna på deras hemsida: [Instruktioner på Homebrews hemsida](https://brew.sh/).
-
-   Instalera sedan Docker med hjälp av homebrew
-      ```
-      brew install docker
-      ```
-   För att lättare administrera Docker rekomenderas det att instalera Rancher-Desktop:
-      ```
-      brew install rancher
-      ```
-   Starta den lokala LibreTranslate instansen genom att köra följande Docker-kommando i terminalen:
-      ```
-      docker run -d -p 5000:5000 libretranslate/libretranslate
-      ```
-     
+   ```  
 1. **Starta utvecklingsservern**
 
    Starta utvecklingsservern i ett nytt terminalfönster:
@@ -82,17 +64,17 @@ Projektet använder sig av följande API:er:
    - Beskrivning: Används för att hämta en eller flera definitioner av engelska ord.
    - Dokumentation: [Dictionary API Documentation](https://dictionaryapi.dev/)
 
-2. **LibreTranslate API**
+2. **MyMemory API**
    - URL: 
    ```
-   https://libretranslate.de/translate
+   https://api.mymemory.translated.net/get
    ```
    - Beskrivning: Används för att översätta text till olika språk.
-   - Dokumentation: [LibreTranslate API Documentation](https://libretranslate.com/)
+   - Dokumentation: [MyMemory API Documentation](https://mymemory.translated.net/doc/spec.php#TMX)
 
 ## Funktioner
 
-- Sökning av orddefinitioner med hjälp av dictionary-API.
+- Sökning av ord definitioner med hjälp av dictionary-API.
 - Sparande av sökhistorik.
 - Översättning av definitioner till valfritt språk.
 
@@ -120,14 +102,12 @@ För att använda applikationen, följ dessa steg:
 4. **Översättning av definitioner**
    - Under definitionen kommer du att se en översättningsknapp eller ett översättningsalternativ.
    - Välj det språk du vill översätta definitionen till från en dropdown-meny.
-   - Klicka på "Översätt" för att få definitionen översatt till det valda språket med hjälp av LibreTranslate API.
+   - Klicka på "Översätt" för att få definitionen översatt till det valda språket med hjälp av MyMemory API.
 
 5. **Sökhistorik**
    - Applikationen håller reda på alla ord du har sökt efter under din session.
    - Din sökhistorik visas antingen i en sidopanel eller längst ner på sidan.
-   - Du kan klicka på tidigare sökta ord för att snabbt visa deras definitioner igen.
-
-
+   - Du kan klicka på ett tidigare sökt ord i listan för att snabbt visa deras definitioner igen.
 
 ## Jämförelse av ramverk/bibliotek
 
