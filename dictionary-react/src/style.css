@@ -35,9 +35,9 @@ body {
 
 .container {
     flex: 1;
-    width: 600px;
-    padding: 20px;
-    margin-right: 20px;
+    width: 500px;
+    padding: 20%;
+    margin-right: 10%;
     box-sizing: border-box;
 }
 
@@ -166,15 +166,19 @@ select:hover {
     }
 
     .container {
-        width: 400px;
-        padding: 20px;
+        width: 450px;
+        padding: 20%;
+        
 
     }
 
     .sidebar {
-        width: 100px;
+        width: 15%;
         padding: 20px;
+        margin-left: 10%;
     }
+
+
 
 }
 
@@ -187,8 +191,7 @@ select:hover {
         align-items: center;
     }
     .container {
-        width: 500px;
-        padding-left: 20px;
+        width: 600px;
         margin-right: 0;
         box-sizing: border-box;
     }
